@@ -23,7 +23,7 @@ ATENÇÃO!!! Edite apenas este arquivo. Não altere os arquivos da pasta 'src'.
 */
 
 describe('verifica o usuário', () => {
-  const data = {
+  const user = {
     gender: 'male',
     name: {
       first: 'Antônio',
@@ -41,18 +41,18 @@ describe('verifica o usuário', () => {
   const spyApi = jest.spyOn(api, 'fetchURL');
   // Crie sua mock da função fetchURL() aqui  
   spyApi.mockImplementation(() => Promise.resolve({
-    json: () => Promise.resolve(data),
+    json: () => Promise.resolve(user),
   }));
 
   it('verifica se o usuário é o tunico', async () => (
     spyApi().then(() => {
-      expect(data.gender).toEqual('male');
-      expect(data.name.first).toEqual('Antônio');
-      expect(data.name.last).toEqual('Britto');
-      expect(data.location.country).toEqual('Brazil');
-      expect(data.email).toEqual('tunico@bol.com.br');
-      expect(data.login.username).toEqual('tunicao123');
-      expect(data.login.password).toEqual('1234567890');
+      expect(user.gender).toEqual('male');
+      expect(user.name.first).toEqual('Antônio');
+      expect(user.name.last).toEqual('Britto');
+      expect(user.location.country).toEqual('Brazil');
+      expect(user.email).toEqual('tunico@bol.com.br');
+      expect(user.login.username).toEqual('tunicao123');
+      expect(user.login.password).toEqual('1234567890');
     })
   ));
 
