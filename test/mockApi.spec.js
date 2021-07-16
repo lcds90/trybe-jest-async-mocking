@@ -40,21 +40,22 @@ describe('verifica o usuário', () => {
   };
   const spyApi = jest.spyOn(api, 'fetchURL');
   // Crie sua mock da função fetchURL() aqui
-  spyApi.mockImplementation(() => Promise.resolve({
-    json: () => Promise.resolve(user),
-  }));
+  spyApi.mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(user),
+    }));
 
-  it('verifica se o usuário é o tunico', async () => (
-    spyApi().then(() => {
-      expect(user.gender).toEqual('male');
-      expect(user.name.first).toEqual('Antônio');
-      expect(user.name.last).toEqual('Britto');
-      expect(user.location.country).toEqual('Brazil');
-      expect(user.email).toEqual('tunico@bol.com.br');
-      expect(user.login.username).toEqual('tunicao123');
-      expect(user.login.password).toEqual('1234567890');
-    })
-  ));
+  it('verifica se o usuário é o tunico', async () => {
+    const result = await spyApi();
+    const { gender, name, location, email, login } = result;
+    expect(gender).toEqual('male');
+    expect(name.first).toEqual('Antônio');
+    expect(name.last).toEqual('Britto');
+    expect(location.country).toEqual('Brazil');
+    expect(email).toEqual('tunico@bol.com.br');
+    expect(login.username).toEqual('tunicao123');
+    expect(login.password).toEqual('1234567890');
+  });
 
-  spyApi.mockRestore();
+  // spyApi.mockRestore();
 });
