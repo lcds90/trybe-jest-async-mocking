@@ -1,5 +1,6 @@
 const api = require('../src/mockApi');
 
+let { fetchURL } = api;
 /*
 A função fetchURL retorna um JSON com informações de um usuário aleatório buscadas da API 'randomuser.me'.
 No entanto, nos testes abaixo, queremos que todas as vezes que chamarmos a API a resposta contenha as informações do nosso adminis..Cof! Cof!.. programador favorito, Tunicão.
@@ -23,39 +24,35 @@ ATENÇÃO!!! Edite apenas este arquivo. Não altere os arquivos da pasta 'src'.
 */
 
 describe('verifica o usuário', () => {
-  const user = {
-    gender: 'male',
-    name: {
-      first: 'Antônio',
-      last: 'Britto',
-    },
-    location: {
-      country: 'Brazil',
-    },
-    email: 'tunico@bol.com.br',
-    login: {
-      username: 'tunicao123',
-      password: '1234567890',
-    },
-  };
-  const spyApi = jest.spyOn(api, 'fetchURL');
-  // Crie sua mock da função fetchURL() aqui
-  spyApi.mockImplementation(() =>
-    Promise.resolve({
-      json: () => Promise.resolve(user),
-    }));
-
   it('verifica se o usuário é o tunico', async () => {
-    const result = await spyApi();
-    const { gender, name, location, email, login } = result;
-    expect(gender).toEqual('male');
-    expect(name.first).toEqual('Antônio');
-    expect(name.last).toEqual('Britto');
-    expect(location.country).toEqual('Brazil');
-    expect(email).toEqual('tunico@bol.com.br');
-    expect(login.username).toEqual('tunicao123');
-    expect(login.password).toEqual('1234567890');
-  });
+    const userData = {
+      gender: 'male',
+      name: {
+        first: 'Antônio',
+        last: 'Britto',
+      },
+      location: {
+        country: 'Brazil',
+      },
+      email: 'tunico@bol.com.br',
+      login: {
+        username: 'tunicao123',
+        password: '1234567890',
+      },
+    };
+    // sugar syntax para promise
+    fetchURL = jest.fn().mockResolvedValue(userData);
 
-  // spyApi.mockRestore();
+    fetchURL()
+      .then((data) => {
+        const { gender, name, location, email, login } = data;
+        expect(gender).toEqual('male');
+        expect(name.first).toEqual('Antônio');
+        expect(name.last).toEqual('Britto');
+        expect(location.country).toEqual('Brazil');
+        expect(email).toEqual('tunico@bol.com.br');
+        expect(login.username).toEqual('tunicao123');
+        expect(login.password).toEqual('1234567890');
+      });
+  });
 });
