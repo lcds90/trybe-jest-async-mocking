@@ -20,6 +20,19 @@ ATENÇÃO!!! Edite apenas este arquivo. Não altere os arquivos da pasta 'src'.
 */
 
 describe('quem sobreviveu?', () => {
+  beforeEach(() => {
+    adventure.randomAttack();
+  });
+
+  afterEach(() => {
+    if (adventure.specialists.length === 1) {
+      const survivor = adventure.specialists.map((s) => s)[0];
+      console.log(`Sobrevivente da batalha: ${survivor.nome} - ${survivor.classe}`);
+    } else {
+      console.log('Sobreviventes: \n', adventure.specialists);
+    }
+  });
+
   // Adicione seu código aqui
 
   it('depois da primeira aventura', () => {

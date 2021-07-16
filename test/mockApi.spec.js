@@ -27,19 +27,19 @@ describe('verifica o usuário', () => {
     gender: 'male',
     name: {
       first: 'Antônio',
-      last: 'Britto'
+      last: 'Britto',
     },
     location: {
-      country: 'Brazil'
+      country: 'Brazil',
     },
     email: 'tunico@bol.com.br',
     login: {
       username: 'tunicao123',
-      password: '1234567890'
-    }
-  }
+      password: '1234567890',
+    },
+  };
   const spyApi = jest.spyOn(api, 'fetchURL');
-  // Crie sua mock da função fetchURL() aqui  
+  // Crie sua mock da função fetchURL() aqui
   spyApi.mockImplementation(() => Promise.resolve({
     json: () => Promise.resolve(user),
   }));
