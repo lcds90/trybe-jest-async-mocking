@@ -11,7 +11,9 @@ ATENÇÃO!!! Edite apenas este arquivo. Não altere os arquivos da pasta 'src'.
 
 describe('o retorno do telefonema', () => {
   it('should return `atende`', async () => {
+    const result = await answerPhone(true);
     await expect(answerPhone(true)).resolves.toBe('Oi!');
+    await expect(typeof result).toBe('string');
   });
   it('should return `ocupado`', async () => {
     await expect(answerPhone(false)).rejects.toThrowError();
